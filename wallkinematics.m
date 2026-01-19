@@ -1,0 +1,75 @@
+ function [Cleardist, Fallshort, Vx, Vy, twall, g]= wallkinematics(V,D,P, HU,hwall, theta)
+if strcmp(P,"Earth")
+    g=9.8;
+elseif strcmp(P,"Moon")
+    g=1.62;
+elseif strcmp(P, "Mars")
+    g=3.73;
+elseif strcmp(P, "Jupiter")
+    g=24.79;
+elseif strcmp(P, "Sun")
+    g=274;
+elseif strcmp(P,"Venus")
+    g=8.87;
+elseif strcmp(P, "Mercury")
+    g=3.7;
+elseif strcmp(P, "Neptune")
+    g=11.15;
+elseif strcmp(P, "Uranus")
+    g=8.87;
+elseif strcmp(P, "Titan")
+    g=1.352;
+elseif strcmp(P, "Saturn")
+    g=10.44;
+end
+
+Vx=V*cosd(theta);
+twall=D/Vx;
+Vy=V*sind(theta);
+hball=Vy*twall+1/2*(-g)*twall.^2+HU;
+
+if hball<0
+    Cleardist=[];
+    Fallshort=1;
+elseif hball>hwall
+    Cleardist=hball-hwall;
+    Fallshort=0;
+elseif hball<hwall
+    Cleardist=hwall-hball;
+    Fallshort=2;
+end
+% j=0;
+% hballg=[HU];
+% wx=[0:1:D*2];
+%  wallpos=linspace(0, hwall, 2);
+%  Dwall=[D,D];
+%  plot(Dwall, wallpos, 'r-', LineWidth=4)
+%  yline(0,'g-', LineWidth=2)
+%  hold on
+%  xlim([0, D])
+% i=1;
+%  ylim([0, hwall*1.15])
+%  title 'X and Y Postion of Ball over Time'
+%  xlabel 'X Position(meters)'
+%  ylabel 'Y Position(meters)'
+% for j=0:.1:D*10
+%     x(i) = Vx*j;
+%     hballg(i)=Vy*j+1/2*(-g)*j.^2+HU;
+%     plot(x,hballg, 'b-')
+%     drawnow
+%     pause(0.2)
+%     if hballg(i)<0
+%         break
+%     elseif j>twall && (Vy*twall+1/2*(-g)*twall.^2+HU)<hwall
+%         xlim([0,D])
+%         break
+%     end
+%      if x(i)>D
+%         xlim([0 x(i)*1.25])
+%      end
+%      if max(hballg)>hwall
+%          ylim([0 max(hballg)*1.15])
+%      end
+%     i=i+1;
+% end
+ end
