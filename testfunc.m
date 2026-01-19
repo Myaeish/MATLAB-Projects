@@ -1,1 +1,0 @@
-[a, b, c]=wallkinematics(10, 10, "Earth", 1.5, 5, 20)
